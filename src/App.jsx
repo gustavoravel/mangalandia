@@ -7,6 +7,7 @@ import FeaturedManga from './components/FeaturedManga';
 import PricingPlans from './components/PricingPlans';
 import LoginForm from './components/Auth/LoginForm';
 import RegisterForm from './components/Auth/RegisterForm';
+import ForgotPassword from './components/Auth/ForgotPassword';
 import UserDashboard from './components/UserDashboard/UserDashboard';
 import AdminDashboard from './components/Admin/AdminDashboard';
 import ProtectedRoute from './components/Admin/ProtectedRoute';
@@ -30,6 +31,7 @@ function App() {
             } />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/register" element={<RegisterForm />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/catalog" element={<MangaCatalog />} />
             <Route path="/manga/:id" element={<MangaReader />} />
             <Route path="/dashboard" element={

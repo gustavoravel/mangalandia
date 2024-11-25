@@ -24,12 +24,7 @@ const LoginForm = () => {
       return;
     }
 
-    // Check if user is admin
-    if (email.endsWith('@admin.mangaflix.com')) {
-      navigate('/admin/dashboard');
-    } else {
-      navigate('/dashboard');
-    }
+    navigate('/catalog');
   };
 
   return (
@@ -77,6 +72,17 @@ const LoginForm = () => {
                   required
                 />
               </div>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <div className="text-sm">
+              <Link
+                to="/forgot-password"
+                className="text-primary hover:text-primary-dark"
+              >
+                Esqueceu sua senha?
+              </Link>
             </div>
           </div>
 

@@ -3,7 +3,11 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  onAuthStateChanged
+  onAuthStateChanged,
+  sendPasswordResetEmail,
+  updatePassword,
+  reauthenticateWithCredential,
+  EmailAuthProvider
 } from 'firebase/auth';
 
 export const registerUser = async (email, password) => {
@@ -27,6 +31,34 @@ export const loginUser = async (email, password) => {
 export const logoutUser = async () => {
   try {
     await signOut(auth);
+    return { error: null };
+  } catch (error) {
+    return { error: error.message };
+  }
+};
+
+export const resetPassword = async (email) => {
+  try {
+    await sendPasswordResetEmail(auth, email);
+    return { error: null };
+  } catch (error) {
+    return { error: error.message };
+  }
+};
+
+export const changePassword = async (currentPassword, newPassword) => {
+  try {
+    const user = auth.currentUser;
+    if (!user) {
+      throw new Error('No user logged in');
+    }
+
+    // Re-authenticate user before changing password
+    const credential = EmailAuthProvider.credential(user.email, currentPassword);
+    await reauthenticateWithCredential(user, credential);
+    
+    // Update password
+    await updatePassword(user, newPassword);
     return { error: null };
   } catch (error) {
     return { error: error.message };
